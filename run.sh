@@ -28,7 +28,7 @@ source "$SELF_DIR/common.sh"
 
 ### main #######################################################################
 
-ssh -i "$SELF_DIR/$WORKER_SSH_KEY" \
+ssh -i "$WORKER_SSH_KEY" \
   -o ServerAliveInterval=60 \
   -o ServerAliveCountMax=60 \
   "$WORKER_USER@$(get_ip)" \

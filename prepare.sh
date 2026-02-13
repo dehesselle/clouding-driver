@@ -30,7 +30,7 @@ function wait_for_ssh
     # shellcheck disable=SC2034 # unused index variable
     echo "waiting for ssh ..."
     for i in $(seq 1 30); do
-        if ssh -i "$SELF_DIR/$WORKER_SSH_KEY" \
+        if ssh -i "$WORKER_SSH_KEY" \
                 -o ConnectTimeout=60 \
                 -o StrictHostKeyChecking=no \
                 -o UserKnownHostsFile=/dev/null \

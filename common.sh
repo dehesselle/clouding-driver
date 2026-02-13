@@ -22,7 +22,7 @@ WORKER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_
 # shellcheck disable=SC2034 # used by the other scripts
 WORKER_USER="Administrator"
 # shellcheck disable=SC2034 # used by the other scripts
-WORKER_SSH_KEY=clouding_rsa
+WORKER_SSH_KEY=~/.ssh/clouding_rsa
 
 ### functions ##################################################################
 

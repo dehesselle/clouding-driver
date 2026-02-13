@@ -27,8 +27,8 @@ source "$SELF_DIR/common.sh"
 function wait_for_ssh
 {
     local ip=$1
-    # shellcheck disable=SC2034 # unused index variable
     echo "waiting for ssh ..."
+    # shellcheck disable=SC2034 # unused index variable
     for i in $(seq 1 30); do
         if ssh -i "$WORKER_SSH_KEY" \
                 -o ConnectTimeout=60 \

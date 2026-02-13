@@ -52,7 +52,7 @@ function create_server {
             --snapshot "$WORKER_SNAPSHOT" \
             --flavorid "$WORKER_FLAVOR" \
             --password "$password" \
-            --wait > "$WORKER_ID".json; then
+            --wait > "$WORKER_ID_FILE"; then
         echo "server created"
         local ip
         ip=$(get_ip)
@@ -69,7 +69,7 @@ function create_server {
         fi
     else
         echo "failed to create server"
-        rm "$WORKER_ID".json
+        rm "$WORKER_ID_FILE"
         return 1
     fi
 }

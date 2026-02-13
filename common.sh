@@ -22,6 +22,7 @@ WORKER_CMD="powershell.exe -Command -"
 WORKER_INIT=worker_init.ps1
 WORKER_FLAVOR="8x16"
 WORKER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_CI_PIPELINE_IID"
+WORKER_ID_FILE=/tmp/$WORKER_ID.json
 WORKER_SHELL="pwsh"
 WORKER_SNAPSHOT="glrwinwork"
 WORKER_SSH_KEY=~/.ssh/clouding_rsa
@@ -31,15 +32,15 @@ WORKER_USER="Administrator"
 
 function delete_server
 {
-    if [ -f "$WORKER_ID.json" ]; then
+    if [ -f "$WORKER_ID_FILE" ]; then
         local name
-        name=$(jq -r '.servers[0].name' "$WORKER_ID.json")
+        name=$(jq -r '.servers[0].name' "$WORKER_ID_FILE")
         if tuca servers delete --name "$name"; then
             echo "deleting '$name'"
-            rm "$WORKER_ID".json
+            rm "$WORKER_ID_FILE"
         else
             echo "failed to delete '$name', descending into chaos!"
-            mv "$WORKER_ID".json "$WORKER_ID".json.delete
+            mv "$WORKER_ID_FILE" "$WORKER_ID_FILE".delete
             return 1
         fi
     else
@@ -50,7 +51,7 @@ function delete_server
 
 function get_ip
 {
-    jq -r '.servers[0].publicIp' "$WORKER_ID.json"
+    jq -r '.servers[0].publicIp' "$WORKER_ID_FILE"
 }
 
 ### main #######################################################################

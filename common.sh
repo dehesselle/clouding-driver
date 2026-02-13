@@ -29,7 +29,6 @@ WORKER_USER="Administrator"
 
 ### functions ##################################################################
 
-
 function delete_server
 {
     if [ -f "$WORKER_ID.json" ]; then

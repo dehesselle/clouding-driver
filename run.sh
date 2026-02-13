@@ -28,8 +28,8 @@ source "$SELF_DIR/common.sh"
 
 ### main #######################################################################
 
-ssh -i "$RUNNER_SSH_KEY" \
+ssh -i "$SELF_DIR/$RUNNER_SSH_KEY" \
   -o ServerAliveInterval=60 \
   -o ServerAliveCountMax=60 \
   "$RUNNER_USER@$(get_ip)" \
-  powershell < "${1}" || exit 1
+  "powershell.exe -Command -" < "${1}" || exit 1

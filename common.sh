@@ -18,11 +18,11 @@
 
 ### variables ##################################################################
 
-RUNNER_ID="$CI_PROJECT_NAME-$CI_JOB_NAME_SLUG"
+RUNNER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_CI_PIPELINE_IID"
 # shellcheck disable=SC2034 # used by the other scripts
 RUNNER_USER="Administrator"
 # shellcheck disable=SC2034 # used by the other scripts
-RUNNER_SSH_KEY=foobar
+RUNNER_SSH_KEY=clouding_rsa
 
 ### functions ##################################################################
 

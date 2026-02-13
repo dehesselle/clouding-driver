@@ -32,6 +32,9 @@ cat << EOF
     "name": "Clouding",
     "version": "v0.1.0"
   },
-$("$XDG_CONFIG_HOME"/gitlab-runner/job_env.sh)
+  "job_env": {
+    "CLOUDINGIO_API_TOKEN": "secret"
+  },
+  "shell": "pwsh"
 }
 EOF

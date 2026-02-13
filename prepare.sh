@@ -28,8 +28,14 @@ function wait_for_ssh
 {
     local ip=$1
     # shellcheck disable=SC2034 # unused index variable
+    echo "waiting for ssh ..."
     for i in $(seq 1 30); do
-        if ssh -i "$RUNNER_SSH_KEY" -o ConnectTimeout=60 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$RUNNER_USER@$ip" "echo hello" >/dev/null 2>&1; then
+        if ssh -i "$SELF_DIR/$RUNNER_SSH_KEY" \
+                -o ConnectTimeout=60 \
+                -o StrictHostKeyChecking=no \
+                -o UserKnownHostsFile=/dev/null \
+                "$RUNNER_USER@$ip" "echo hello" >/dev/null 2>&1; then
+            echo "ssh is up"
             return 0
         fi
         sleep 2
@@ -40,18 +46,17 @@ function wait_for_ssh
 function create_server {
     local password
     password=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 32)
-    echo "creating server..."
+    echo "creating server $RUNNER_ID ..."
     if tuca servers create \
             --name "$RUNNER_ID" \
-            --snapshot glrwin \
+            --snapshot glrwinwork \
             --flavorid 8x16 \
             --password "$password" \
             --wait > "$RUNNER_ID".json; then
-        echo "server $RUNNER_ID is up"
+        echo "server created"
         local ip
         ip=$(get_ip)
         if wait_for_ssh "$ip"; then
-            echo "ssh access is available"
             touch ~/.ssh/known_hosts
             ssh-keygen -R "$ip"
             ssh-keyscan -t rsa "$ip" >> ~/.ssh/known_hosts

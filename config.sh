@@ -35,7 +35,7 @@ cat << EOF
     "version": "v0.1.0"
   },
   "job_env": {
-    "CLOUDINGIO_API_TOKEN": "secret"
+    "CLOUDINGIO_API_TOKEN": "$(cat "$SELF_DIR"/cloudingio.tkn)"
   },
   "shell": "$WORKER_SHELL"
 }

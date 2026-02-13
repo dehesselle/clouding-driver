@@ -60,6 +60,7 @@ function create_server {
             touch ~/.ssh/known_hosts
             ssh-keygen -R "$ip"
             ssh-keyscan -t rsa "$ip" >> ~/.ssh/known_hosts
+            execute_custom_init
             return 0
         else
             echo "ssh access unavailable"
@@ -70,6 +71,20 @@ function create_server {
         echo "failed to create server"
         rm "$WORKER_ID".json
         return 1
+    fi
+}
+
+function execute_custom_init
+{
+    local file="$SELF_DIR/$WORKER_INIT"
+    if [ -f "$file" ]; then
+        echo "executing custom initialization ..."
+        ssh -i "$WORKER_SSH_KEY" \
+        -o ServerAliveInterval=60 \
+        -o ServerAliveCountMax=60 \
+        "$WORKER_USER@$(get_ip)" \
+        "$WORKER_CMD" < "$file" || exit 1
+        echo "initialization finished"
     fi
 }
 

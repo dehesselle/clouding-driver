@@ -49,8 +49,8 @@ function create_server {
     echo "creating server $WORKER_ID ..."
     if tuca servers create \
             --name "$WORKER_ID" \
-            --snapshot glrwinwork \
-            --flavorid 8x16 \
+            --snapshot "$WORKER_SNAPSHOT" \
+            --flavorid "$WORKER_FLAVOR" \
             --password "$password" \
             --wait > "$WORKER_ID".json; then
         echo "server created"

@@ -10,7 +10,7 @@
 
 ### shellcheck #################################################################
 
-# Nothing here.
+# shellcheck disable=SC2034 # variables are used by scripts sourcing this one
 
 ### dependencies ###############################################################
 
@@ -18,11 +18,13 @@
 
 ### variables ##################################################################
 
+WORKER_CMD="powershell.exe -Command -"
+WORKER_FLAVOR="8x16"
 WORKER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_CI_PIPELINE_IID"
-# shellcheck disable=SC2034 # used by the other scripts
-WORKER_USER="Administrator"
-# shellcheck disable=SC2034 # used by the other scripts
+WORKER_SHELL="pwsh"
+WORKER_SNAPSHOT="glrwinwork"
 WORKER_SSH_KEY=~/.ssh/clouding_rsa
+WORKER_USER="Administrator"
 
 ### functions ##################################################################
 

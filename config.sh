@@ -14,7 +14,9 @@
 
 ### dependencies ###############################################################
 
-# Nothing here.
+SELF_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+# shellcheck disable=SC1091 # dynamic include
+source "$SELF_DIR/common.sh"
 
 ### variables ##################################################################
 
@@ -35,6 +37,6 @@ cat << EOF
   "job_env": {
     "CLOUDINGIO_API_TOKEN": "secret"
   },
-  "shell": "pwsh"
+  "shell": "$WORKER_SHELL"
 }
 EOF

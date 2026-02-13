@@ -32,4 +32,4 @@ ssh -i "$WORKER_SSH_KEY" \
   -o ServerAliveInterval=60 \
   -o ServerAliveCountMax=60 \
   "$WORKER_USER@$(get_ip)" \
-  "powershell.exe -Command -" < "${1}" || exit 1
+  "$WORKER_CMD" < "${1}" || exit 1

@@ -19,10 +19,10 @@
 ### variables ##################################################################
 
 WORKER_CMD="powershell.exe -Command -"
-WORKER_INIT=worker_init.ps1
 WORKER_FLAVOR="8x16"
 WORKER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_CI_PIPELINE_IID"
 WORKER_ID_FILE=/tmp/$WORKER_ID.json
+WORKER_INIT=worker_init.ps1
 WORKER_SHELL="pwsh"
 WORKER_SNAPSHOT="glrwinwork"
 WORKER_SSH_KEY=~/.ssh/clouding_rsa

@@ -24,27 +24,11 @@ source "$SELF_DIR/common.sh"
 
 ### functions ##################################################################
 
-function wait_for_ssh
-{
-    local ip=$1
-    echo "waiting for ssh ..."
-    # shellcheck disable=SC2034 # unused index variable
-    for i in $(seq 1 30); do
-        if ssh -i "$WORKER_SSH_KEY" \
-                -o ConnectTimeout=60 \
-                -o StrictHostKeyChecking=no \
-                -o UserKnownHostsFile=/dev/null \
-                "$WORKER_USER@$ip" "echo hello" >/dev/null 2>&1; then
-            echo "ssh is up"
-            return 0
-        fi
-        sleep 2
-    done
-    return 1
-}
-
 function create_server {
     local password
+    # We need to specify a password to spin up a server but we actually don't
+    # care about it as we're going to use SSH public key authentication exclusively.
+    # So we generate a random one each time and don't care about it.
     password=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 32)
     echo "creating server $WORKER_ID ..."
     if tuca servers create \
@@ -86,6 +70,25 @@ function execute_custom_init
         "$WORKER_CMD" < "$file" || exit 1
         echo "initialization finished"
     fi
+}
+
+function wait_for_ssh
+{
+    local ip=$1
+    echo "waiting for ssh ..."
+    # shellcheck disable=SC2034 # unused index variable
+    for i in $(seq 1 30); do
+        if ssh -i "$WORKER_SSH_KEY" \
+                -o ConnectTimeout=60 \
+                -o StrictHostKeyChecking=no \
+                -o UserKnownHostsFile=/dev/null \
+                "$WORKER_USER@$ip" "echo hello" >/dev/null 2>&1; then
+            echo "ssh is up"
+            return 0
+        fi
+        sleep 2
+    done
+    return 1
 }
 
 ### main #######################################################################

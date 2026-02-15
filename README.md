@@ -1,17 +1,17 @@
 # GitLab custom executor for Clouding.io
 
-clouding-driver is a custom executor for GitLab Runner to use [Clouding.io](https://clouding.io) servers as workers that run jobs. While it can be used for any OS that Clouding.io supports, it was created with Windows workers in mind (see variables in `common.sh`).
+clouding-driver is a custom executor for GitLab Runner to use [Clouding.io](https://clouding.io) servers as workers that run jobs. While it can be used for any OS that Clouding.io supports, it was created with Windows workers in mind and that is the only tested platform so far.
 
 ## Requirements
 
 - a Linux/Unix environment for the manging node
   - gitlab-runner, bash, jq, GNU readlink, ssh client utilities
   - [tuca](https://pypi.org/project/tuca/) as interface to Clouding.io API
-  - create `cloudingio.tkn` to hold your API token
+  - create `cloudingio.tkn` file to hold your API token
 - a snapshot of your worker node
-  - user setup with ssh key authentication
-  - gitlab-runner.exe
-- See the following settings in `common.sh`:
+  - user set up with ssh key authentication
+  - gitlab-runner.exe is in `PATH`
+- adjust settings in `common.sh` accordingly
 
   ```bash
   WORKER_CMD="powershell.exe -Command -"

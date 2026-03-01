@@ -18,7 +18,7 @@
 
 ### variables ##################################################################
 
-WORKER_CMD="powershell.exe -Command -"
+WORKER_CMD="pwsh -WorkingDirectory / -Command -"
 WORKER_FLAVOR="8x16"
 WORKER_ID="$CUSTOM_ENV_CI_PROJECT_NAME-$CUSTOM_ENV_CI_JOB_NAME_SLUG-$CUSTOM_ENV_CI_PIPELINE_IID"
 WORKER_ID_FILE=/tmp/$WORKER_ID.json

@@ -14,7 +14,7 @@ clouding-driver is a custom executor for GitLab Runner to use [Clouding.io](http
 - adjust settings in `common.sh` accordingly
 
   ```bash
-  WORKER_CMD="powershell.exe -Command -"
+  WORKER_CMD="pwsh -WorkingDirectory / -Command -"
   WORKER_FLAVOR="8x16"
   WORKER_SHELL="pwsh"
   WORKER_SNAPSHOT="glrwinwork"
